@@ -1,5 +1,5 @@
 
-def valid_game(filename):
+def valid_game_maximums(filename):
     valid_games = 0
 
     with open(filename) as games:
@@ -25,8 +25,34 @@ def valid_game(filename):
     return valid_games
 
 
+def valid_games_minimums(filename):
+    valid_games = 0
+
+    with open(filename) as games:
+        for line in games:
+            blue = 0
+            red = 0
+            green = 0
+            grabs = line.strip().split(':')[1].split(';')
+            for grab in grabs:
+                cube_counts = grab.split(',')
+                for cube_count in cube_counts:
+                    values = cube_count.strip().split(' ')
+                    color, number = values[1], int(values[0])
+                    if color == 'blue':
+                        blue = max(blue, number)
+                    elif color == 'red':
+                        red = max(red, number)
+                    elif color == 'green':
+                        green = max(green, number)
+            valid_games += red* blue*green
+
+    return valid_games
+
+
 def main():
-    print(valid_game('game_data.txt'))
+    print(valid_game_maximums('game_data.txt'))
+    print(valid_games_minimums('game_data.txt'))
 
 
 if __name__ == '__main__':
