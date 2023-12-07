@@ -27,6 +27,7 @@ def process_hands(filename):
     return hands
 
 
+
 def sort_pile(e):
     card_num = 0
     i = len(e[0])
